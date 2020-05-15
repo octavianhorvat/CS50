@@ -1,0 +1,92 @@
+  {% extends "layout.html" %}
+
+{% block title %}
+    NP
+{% endblock %}
+
+{% block heading %}
+    First Page
+{% endblock %}
+
+{% block body %}
+  <div>
+    <!–– Create a new complaint-->
+    <form action="{{ url_for('check') }}" method="post">
+        <div class="col-lg-6 col-sm-12 form-group">
+          <input name="licencePlate" type="text" placeholder="{{licencePlate}}" >
+          <input name="vin" type="text" placeholder="xzczxcsfs" >
+          <button class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+    <!–– Display all licence plates -->
+    <div class="table-responsive">
+      <table class="table">
+        <caption>List of licence plates</caption>
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Licence Plate </th>
+        <th scope="col">Insurance</th>
+        <th scope="col">Address</th>
+        <th scope="col">Created date</th>
+        <th scope="col">Last updates</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for licence in licencePlates %}
+      <tr>
+        <th scope="row">{{ licence.licence_plate_id }}</th>
+            <td>{{ licence.licence_plate }}</td>
+            <td>{{ licence.insurance }}</td>
+            <td>{{ licence.address }}</td>
+            <td>{{ licence.created_at }}</td>
+            <td>{{ licence.updated_at }}</td>
+        </tr>
+        {% else %}
+          <li>No licence plates.</li>
+      {% endfor %}
+      </table>
+    </div>
+
+    <!–– Display all complaints -->
+    <div class="table-responsive">
+      <table class="table">
+        <caption>List of complaints</caption>
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Description</th>
+        <th scope="col">Created date</th>
+        <th scope="col">Last updates</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for complaint in complaints %}
+      <tr>
+        <th scope="row">{{ complaint.complaint_id }}</th>
+            <td>{{ complaint.description }}</td>
+            <td>{{ complaint.created_at }}</td>
+            <td>{{ complaint.updated_at }}</td>
+        </tr>
+        {% else %}
+          <td>No complaints.</td>
+      {% endfor %}
+      </table>
+    </div>
+
+    <!–– Add a licence plate -->
+    <form action="{{ url_for('addLicence') }}" method="post">
+        <div class="form-group">
+            <input class="form-control" name="licencePlate" placeholder="Licence Plate">
+            <input class="form-control" name="address" placeholder="Address">
+            <input class="form-control" name="insurance" placeholder="Insurance date">
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary">Add Licence Plate</button>
+        </div>
+
+    </form>
+    <div>
+{% endblock %}
